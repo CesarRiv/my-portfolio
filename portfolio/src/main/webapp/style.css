@@ -1,9 +1,195 @@
 #content {
   margin-left: auto;
   margin-right: auto;
-  width: 650px;
+  margin-top: 10px;
+  margin-bottom: 50px;
+  width: 800px;
+  color: white;
+  font-size: 150%;
+  text-align: center;
+
 }
 
-#greeting-container {
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 50%;
+  max-height:500px;
   margin-top: 20px;
 }
+h2
+{
+    text-align: center; 
+    color: white;
+    margin-top: 30px;
+    font-size: 200%;
+}
+
+
+#random-image-container img {
+  margin-top: 20px;
+}
+
+/* page-background */
+
+* { 
+	margin: 0; 
+	padding: 0; 
+}
+
+body { 
+	background:grey; 
+	margin: 0; 
+}
+
+#page-wrap { 
+	width: 960px; 
+	margin: 200px auto 0; 
+}
+
+/*Animating title*/
+h1 { 
+		  text-align: center;
+		  color: white;
+		  text-transform: uppercase;
+		  padding: 1px;
+		  font-family: 'Raleway', cursive;
+		  font-weight: 100;
+		  position: relative;
+		  background: -webkit-linear-gradient(left,grey, #eee, grey);
+		  background: -moz-linear-gradient(left, grey, #eee, grey);
+		  background: -ms-linear-gradient(left, grey, #eee, grey);
+		  background: -o-linear-gradient(left, grey, #eee, grey);
+		}
+		h1:before {
+		  content: "";
+		  position: absolute;
+		  left: 50%;
+		  top: -50px;
+		  width: 600px;
+		  margin-left: -300px;
+		  margin-top: -220px;
+		  height: 600px;
+		  background: -webkit-radial-gradient(50% 50%, ellipse closest-side, grey, grey);
+		  background: -moz-radial-gradient(50% 50%, ellipse closest-side, grey, grey);
+		  background: -ms-radial-gradient(50% 50%, ellipse closest-side, grey, grey);
+		  background: -o-radial-gradient(50% 50%, ellipse closest-side, grey, grey);
+		  z-index: -1;
+		}
+		h1 a {
+		  background: grey;
+		  display: block;
+		  padding: 20px;
+		  text-decoration: none;
+		  letter-spacing: 30px;
+		  color: white;
+		  -webkit-animation: comein 1.5s 1 ease-in-out forwards;
+		  -moz-animation: comein 1.5s 1 ease-in-out forwards;
+		}
+		
+		@-webkit-keyframes comein {
+		   0% { letter-spacing: 100px; color: rgba(255,255,255,0); }
+		   70% { letter-spacing: 20px; }
+		   100% { letter-spacing: 30px; color: rgba(255,255,255,1) }
+		}
+		@-moz-keyframes comein {
+		   0% { letter-spacing: 100px; color: rgba(255,255,255,0); }
+		   70% { letter-spacing: 20px; }
+		   100% { letter-spacing: 30px; color: rgba(255,255,255,1) }
+		}
+
+
+
+.container {
+  position: relative;
+  width: 50%;
+}
+
+.image {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%)
+}
+
+.container:hover .image {
+  opacity: 0.3;
+}
+
+.container:hover .middle {
+  opacity: 1;
+}
+
+.text {
+  background-color: #4CAF50;
+  color: white;
+  font-size: 16px;
+  padding: 16px 32px;
+}
+
+
+
+
+
+.row {
+  display: flex;
+ 
+}
+
+.column {
+  flex: 50%;
+  padding: 50px;
+ 
+}
+
+.column-3 {
+  flex: 33.33%;
+  padding: 1px;
+ 
+}
+
+
+.sidenav {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 160px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #111; /* Black */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+}
+
+/* The navigation menu links */
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+
+
+
+
+
