@@ -61,7 +61,7 @@ h1 {
 		  background: -moz-linear-gradient(left, grey, #eee, grey);
 		  background: -ms-linear-gradient(left, grey, #eee, grey);
 		  background: -o-linear-gradient(left, grey, #eee, grey);
-		}
+	}
 		h1:before {
 		  content: "";
 		  position: absolute;
