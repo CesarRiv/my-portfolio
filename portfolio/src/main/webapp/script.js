@@ -26,6 +26,15 @@ function createMap() {
           lat: 37.419857, 
           lng: -122.078827},
            zoom: 16});
+
+
+  const GoogleMarker = new google.maps.Marker({
+    position: {
+    lat: 37.419857, 
+    lng: -122.078827},
+    map: map,
+    title: 'Google'
+  });
 }
 
 
