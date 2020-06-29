@@ -8,37 +8,51 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import com.google.gson.Gson;
-
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import java.io.IOException;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
+import com.google.appengine.api.datastore.Query.SortDirection;
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-    ArrayList<String> comments = new ArrayList<String>();
-    
 
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Get the input from the form.
-    
-    String comment = getParameter(request, "comment", "");
 
-    
-    comments.add(comment);
-    System.out.println("comment was added");
-    
-     System.out.println(comments.get(0));
-    
-    response.getWriter().println(comments.get(0));
    
-   response.sendRedirect("/index.html");
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+    ArrayList<String> cars = new ArrayList<String>();
+    cars.add("Volvo");
+    cars.add("BMW");
+    cars.add("Ford");
+ 
+
+    String json = convertToJson(cars);
+
+    // Send the JSON as the response
+    response.setContentType("application/json;");
+    response.getWriter().println(json);
+
   }
 
-    private String getParameter(HttpServletRequest request, String name, String defaultValue) {
-    String value = request.getParameter(name);
-    if (value == null) {
-      return defaultValue;
+
+    private String convertToJson(ArrayList<String> cars) {
+    String json = "{";
+    json += "\"firstCar\": ";
+    json += "\"" + cars.get(0) + "\"";
+    json += ", ";
+    json += "\"middleCar\": ";
+    json += "\"" + cars.get(1) + "\"";
+    json += ", ";
+    json += "\"lastCar\": ";
+    json += "\"" + cars.get(2) + "\"";
+    json += "}";
+    return json;
     }
-    return value;
-  }
+
 }
    
     
