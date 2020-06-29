@@ -15,45 +15,77 @@
 package com.google.sps;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.ArrayList;
 
 
 public final class FindMeetingQuery {
-  public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    throw new UnsupportedOperationException("TODO: Implement this method.");
-    
+  public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {  
+        
     //Assigning duration of the meeting 
-    long meetingduration = request.getDuration();
+     long meetingDuration = request.getDuration();
 
 
     //Saving collection of attendees 
-    Collection<String> meetingattendees = events.getAttendees();
+    Collection<String> meetingAttendees = request.getAttendees();
 
     //Finding all incompatible time ranges
-    ArrayList<TimeRange> incompatime-ranges = FindIncompatibleRanges(events,meetingattendees)
+   ArrayList<TimeRange> incompatibleRanges = findIncompatibleRanges(events, meetingAttendees);
 
      
     //Sorting the range by chronological order 
-    Collection.sort(incompatable-ranges,TimeRange.ORDER_BY_START);
+    Collections.sort(incompatibleRanges, TimeRange.ORDER_BY_START);
+    Collection<TimeRange> availableRanges = new ArrayList<TimeRange>();
 
 
+    int meetingRequestStartTime = 0; 
+    for (TimeRange eventRange : incompatibleRanges){
+      int rangeEnd = eventRange.end();
+      int rangeStart = eventRange.start();
+        if (!(meetingRequestStartTime + meetingDuration > rangeStart)){ 
+                      TimeRange validRange = TimeRange.fromStartEnd(meetingRequestStartTime, rangeStart, false);
+          availableRanges.add(validRange);
+        }
+      meetingRequestStartTime = Math.max(rangeEnd,meetingRequestStartTime);       
+    }
 
+
+    if (meetingRequestStartTime + meetingDuration <= 24*60){
+              TimeRange restOfDay = TimeRange.fromStartEnd(meetingRequestStartTime, 24*60, false);
+      availableRanges.add(restOfDay);
+    }
+
+    return availableRanges;
+
+  
 
 
   }
-
-  private ArrayList<TimeRange> FindIncompatibleRanges(Collection<Event> events, Collection<String> meetingattendees){
-      //Returns a list of times which a meeting cannot occur
-      ArrayList<TimeRange> incompatable-ranges = new Array<TimeRange>();
-      for(Event event : events){
-          TimeRange event-range = event.getWhen();
-          Collection<String> event-attendees = event.getAttendees();
-          if (areMeetingAttendeesInEvent(meetingattendees,event-attendees)){
-              incompatible_ranges.add(event-range);
-          }
+  private ArrayList<TimeRange> findIncompatibleRanges(Collection<Event> events, Collection<String> meetingAttendees){   
+    ArrayList<TimeRange> incompatibleRanges = new ArrayList<TimeRange>();
+    for (Event event : events){
+      TimeRange eventRange = event.getWhen();
+      //If a previously scheduled event has at least one attendee of group we're scheduling for, then the time range for
+      //that meeting must be excluded, so include it in the result.
+      Collection<String> eventAttendees = event.getAttendees();
+      if (areMeetingAttendeesInEvent(meetingAttendees,eventAttendees)){ 
+        incompatibleRanges.add(eventRange);
       }
-      return incompatible_ranges;
-  }
-}
+    }
 
+    return incompatibleRanges;
+  }
+
+ private Boolean areMeetingAttendeesInEvent(Collection<String> meetingAttendees, Collection<String> eventAttendees){
+    for (String attendee : meetingAttendees) {
+              if (eventAttendees.contains(attendee)){
+        return true;
+      }      
+    }
+    return false;
+  }
+
+
+
+}
 
